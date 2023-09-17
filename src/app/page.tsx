@@ -1,5 +1,6 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
   const { user } = (await getSession()) || {};
@@ -13,6 +14,16 @@ export default async function Home() {
           Get started by editing&nbsp;
           <code className="font-mono font-bold">src/app/page.tsx</code>
         </p>
+        <div>
+          {user ? (
+            <>
+              <p>Welcome {user.name}</p>
+              <Link href="/api/auth/logout">Logout</Link>
+            </>
+          ) : (
+            <Link href="/api/auth/login">Login</Link>
+          )}
+        </div>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
