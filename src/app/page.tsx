@@ -1,9 +1,17 @@
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import {
+  getAccessToken,
+  getSession,
+  withPageAuthRequired,
+} from "@auth0/nextjs-auth0";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {
   const { user } = (await getSession()) || {};
+  if (user) {
+    const accessToken = await getAccessToken();
+    console.log("accesstoken > ", accessToken);
+  }
 
   console.log("user > ", user);
 

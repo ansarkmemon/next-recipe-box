@@ -20,4 +20,31 @@ model User {
   familyName String
   givenName  String?
   picture    String?
+  recipes    Recipe[]
+}
+
+model Recipe {
+  id           String       @id @default(cuid())
+  name         String
+  prepTime     String?
+  cookTime     String?
+  ingredients  Ingredient[]
+  totalTime    String?
+  servings     Int?
+  cuisine      String?
+  course       String?
+  diet         String?
+  instructions String?
+  url          String?
+  User         User?        @relation(fields: [userId], references: [id])
+  userId       String?
+}
+
+model Ingredient {
+  id                String  @id @default(cuid())
+  name              String
+  qty               String
+  unitOfMeasurement String
+  Recipe            Recipe? @relation(fields: [recipeId], references: [id])
+  recipeId          String?
 }
